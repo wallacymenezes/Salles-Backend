@@ -9,6 +9,10 @@ import java.time.LocalDate;
 @Table(name = "tb_vendas")
 public class Venda {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotNull(message = "A data da venda é obrigatória.")
     private LocalDate dataVenda;
 
@@ -53,6 +57,14 @@ public class Venda {
     }
 
     // Getters e Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDate getDataVenda() {
         return dataVenda;
