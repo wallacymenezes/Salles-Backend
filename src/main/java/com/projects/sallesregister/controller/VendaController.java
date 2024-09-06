@@ -2,6 +2,7 @@ package com.projects.sallesregister.controller;
 
 import com.projects.sallesregister.model.Venda;
 import com.projects.sallesregister.repository.VendaRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +37,12 @@ public class VendaController {
     }
 
     @PostMapping
-    public ResponseEntity<Venda> cadastrarVenda(@RequestBody Venda venda) {
+    public ResponseEntity<Venda> cadastrarVenda(@Valid @RequestBody Venda venda) {
         return ResponseEntity.status(HttpStatus.CREATED).body(vendaRepository.save(venda));
     }
 
     @PutMapping
-    public ResponseEntity<Venda> atualizarVenda(@RequestBody Venda venda) {
+    public ResponseEntity<Venda> atualizarVenda(@Valid @RequestBody Venda venda) {
         return vendaRepository.findById(venda.getId())
                 .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(vendaRepository.save(venda)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

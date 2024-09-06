@@ -44,6 +44,19 @@ public class Usuario {
     @JsonIgnoreProperties("usuario")
     private List<Venda> vendas;
 
+    // Metodos construtores
+
+    public Usuario(Long id, String nome, String usuario, String senha, String foto, String cargo) {
+        this.id = id;
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.foto = foto;
+        this.cargo = Cargo.valueOf(cargo);
+    }
+
+    public Usuario() { }
+
     // Getters e Setters
 
     public Long getId() {

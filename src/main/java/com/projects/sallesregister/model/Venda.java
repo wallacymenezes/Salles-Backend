@@ -3,8 +3,10 @@ package com.projects.sallesregister.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_vendas")
@@ -14,8 +16,8 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "A data da venda é obrigatória.")
-    private LocalDate dataVenda;
+    @Temporal(TemporalType.DATE)
+    private Date dataVenda;
 
     @NotBlank(message = "O nome do cliente é obrigatório.")
     private String nomeCliente;
@@ -48,9 +50,9 @@ public class Venda {
     private String vendedor;
 
     @NotNull(message = "O tipo de cliente (PF ou PJ) é obrigatório.")
+    @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
 
-    @Pattern(regexp = "\\d{14}", message = "O CNPJ deve conter 14 dígitos.")
     private String cnpj;
 
     @ManyToOne
@@ -71,11 +73,11 @@ public class Venda {
         this.id = id;
     }
 
-    public LocalDate getDataVenda() {
+    public Date getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(LocalDate dataVenda) {
+    public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
     }
 
