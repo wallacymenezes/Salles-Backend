@@ -1,5 +1,6 @@
 package com.projects.sallesregister.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
@@ -35,7 +36,7 @@ public class Venda {
     private String nomeBancoCartao;
 
     @NotNull(message = "O valor da venda é obrigatório.")
-    @DecimalMin(value = "0.00", inclusive = false, message = "O valor da venda deve ser maior que zero.")
+    @DecimalMin(value = "0.0", inclusive = false, message = "O valor da venda deve ser maior que zero.")
     private BigDecimal valorVenda;
 
     @NotBlank(message = "O status da venda é obrigatório.")
@@ -51,6 +52,10 @@ public class Venda {
 
     @Pattern(regexp = "\\d{14}", message = "O CNPJ deve conter 14 dígitos.")
     private String cnpj;
+
+    @ManyToOne
+    @JsonIgnoreProperties("vendas")
+    private Usuario usuario;
 
     public enum TipoCliente {
         PF, PJ
