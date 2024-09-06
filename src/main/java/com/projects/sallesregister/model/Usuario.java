@@ -1,6 +1,7 @@
 package com.projects.sallesregister.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -25,7 +26,7 @@ public class Usuario {
     @Size(min = 3, max = 255, message = "The name must have at least 3 characters to 255 characters")
     private String nome;
 
-    //@Schema(example = "email@email.com.br")
+    @Schema(example = "email@email.com.br")
     @Email(message = "Email should be valid")
     @NotEmpty(message = "Email cannot be empty")
     private String usuario;
