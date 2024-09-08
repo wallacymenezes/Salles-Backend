@@ -41,9 +41,9 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioRepository.findAllByNomeContainingIgnoreCase(nome));
     }
 
-    @GetMapping("/{usuario}")
-    public ResponseEntity<Usuario> getById(@PathVariable Usuario usuario) {
-        return usuarioRepository.findByUsuario(usuario.getUsuario())
+    @GetMapping("/reset/{usuario}")
+    public ResponseEntity<Usuario> getByUserReset(@PathVariable String usuario) {
+        return usuarioRepository.findByUsuario(usuario)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
