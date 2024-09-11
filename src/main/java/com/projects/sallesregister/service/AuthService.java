@@ -36,11 +36,12 @@ public class AuthService {
     @Autowired
     private JwtService jwtService;
 
-    // Gera e envia o token de recuperação por e-mail
+    // Gera e envia o otp de recuperação por e-mail
     public void createRecoverToken(String email) {
 
-        if (usuarioRepository.findByUsuario(email).isEmpty())
+        if (usuarioRepository.findByUsuario(email).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado", null);
+        }
 
         String otp = generateOtp();
         RecuperadorSenha entity = new RecuperadorSenha();

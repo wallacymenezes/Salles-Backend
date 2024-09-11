@@ -1,5 +1,6 @@
 package com.projects.sallesregister.controller;
 
+import com.projects.sallesregister.model.EmailRequest;
 import com.projects.sallesregister.model.UsuarioLogin;
 import com.projects.sallesregister.service.AuthService;
 import jakarta.validation.Valid;
@@ -16,10 +17,10 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    // Endpoint para solicitar o envio do token de recuperação
+    // Endpoint para solicitar o envio do otp de recuperação
     @PostMapping("/recover-token")
-    public ResponseEntity<Void> createRecoverToken(@Valid @RequestBody String email) {
-        authService.createRecoverToken(email);
+    public ResponseEntity<Void> createRecoverToken(@Valid @RequestBody EmailRequest emailRequest) {
+        authService.createRecoverToken(emailRequest.getEmail());
         return ResponseEntity.noContent().build();
     }
 
