@@ -66,6 +66,7 @@ public class BasicSecurityConfig {
                         .requestMatchers("/usuarios/cadastrar").permitAll()
                         .requestMatchers("/auth/recover-token").permitAll()
                         .requestMatchers("/auth/validate-otp").permitAll()
+                        .requestMatchers("/auth/change-password").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()

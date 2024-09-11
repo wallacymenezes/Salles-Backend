@@ -3,6 +3,7 @@ package com.projects.sallesregister.service;
 import java.time.Instant;
 import java.util.Optional;
 
+import com.projects.sallesregister.model.NovaSenha;
 import com.projects.sallesregister.model.RecuperadorSenha;
 import com.projects.sallesregister.model.Usuario;
 import com.projects.sallesregister.model.UsuarioLogin;
@@ -79,6 +80,21 @@ public class AuthService {
             return usuarioLogin;
         }
         return Optional.empty();
+    }
+
+    public void changePassword(UsuarioLogin usuarioLogin) {
+        Usuario usuario = usuarioRepository.findByUsuario(usuarioLogin.getUsuario())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        // Adicione um log para verificar o valor retornado
+        System.out.println("Usuario encontrado: " + usuario);
+
+        if (usuarioLogin.getToken().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro na validação da OTP");
+        }
+
+        usuario.setSenha(passwordEncoder.encode(usuarioLogin.getSenha()));
+        usuarioRepository.save(usuario);
     }
 
     private String generateOtp() {

@@ -1,5 +1,7 @@
 package com.projects.sallesregister.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 public class UsuarioLogin {
 
     private Long id;
@@ -7,7 +9,10 @@ public class UsuarioLogin {
     private String usuario;
     private String senha;
     private String foto;
+
+    @JsonIgnoreProperties("usuarios")
     private Cargo cargo;
+
     private String token;
 
     public Long getId() {
@@ -65,4 +70,5 @@ public class UsuarioLogin {
     public void setToken(String token) {
         this.token = token;
     }
+
 }
