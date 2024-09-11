@@ -1,5 +1,6 @@
 package com.projects.sallesregister.controller;
 
+import com.projects.sallesregister.model.Cargo;
 import com.projects.sallesregister.model.Usuario;
 import com.projects.sallesregister.repository.UsuarioRepository;
 import com.projects.sallesregister.service.UsuarioService;
@@ -37,20 +38,21 @@ public class UsuarioControllerTest {
     void start() {
 
         usuarioRepository.deleteAll();
-
-        usuarioService.cadastrarUsuario(new Usuario(0L, "Root", "root@root.com", "rootroot", "sem_foto", "ADMINISTRADOR"));
+        Cargo cargo = new Cargo("ADMINISTRADOR");
+        usuarioService.cadastrarUsuario(new Usuario(0L, "Root", "root@root.com", "rootroot", "sem_foto", cargo));
     }
 
     @Test
     @DisplayName("Cadastrar Um Usuario")
     public void deveCriarUmUsuario(){
 
+        Cargo cargo = new Cargo("VENDEDOR");
         HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario(0L,
                 "Lucas Carlos",
                 "lucas@gmail.com",
                 "12345678",
                 "foto",
-                "VENDEDOR"));
+                cargo));
 
         ResponseEntity<Usuario> corpoResposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
 
@@ -61,12 +63,13 @@ public class UsuarioControllerTest {
     @DisplayName("Não deve permitir duplicação do Usuário")
     public void naoDeveDuplicarUsuario() {
 
+        Cargo cargo = new Cargo("VENDEDOR");
         Usuario usuario = new Usuario(0L,
                 "Lucas Carlos",
                 "lucas@gmail.com",
                 "12345678",
                 "foto",
-                "VENDEDOR");
+                cargo);
 
         usuarioService.cadastrarUsuario(usuario);
 
@@ -75,7 +78,7 @@ public class UsuarioControllerTest {
                 "lucas@gmail.com",
                 "12345678",
                 "foto",
-                "VENDEDOR"));
+                cargo));
 
         ResponseEntity<Usuario> corpoResposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
 
@@ -86,19 +89,20 @@ public class UsuarioControllerTest {
     @DisplayName("Atualizar um Usuario")
     public void deveAtualizarUmUsuario() {
 
+        Cargo cargo = new Cargo("VENDEDOR");
         Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(0L,
                 "Lucas Carlos",
                 "lucas@gmail.com",
                 "12345678",
                 "foto",
-                "VENDEDOR"));
+                cargo));
 
         Usuario usuarioUpdate = new Usuario(usuarioCadastrado.get().getId(),
                 "Juliana Andrews Ramos",
                 "lucas@gmail.com",
                 "12345678",
                 "foto",
-                "VENDEDOR");
+                cargo);
 
         HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
@@ -113,19 +117,20 @@ public class UsuarioControllerTest {
     @DisplayName("Listar todos os Usuarios")
     public void deveMostrarTodosUsuarios() {
 
+        Cargo cargo = new Cargo("VENDEDOR");
         usuarioService.cadastrarUsuario(new Usuario(0L,
                 "Lucas Carlos",
                 "lucas@gmail.com",
                 "12345678",
                 "foto",
-                "VENDEDOR"));
+                cargo));
 
         usuarioService.cadastrarUsuario(new Usuario(0L,
                 "Juliana Andrews Ramos",
                 "juliana@gmail.com",
                 "12345678",
                 "foto",
-                "VENDEDOR"));
+                cargo));
 
         ResponseEntity<String> resposta = testRestTemplate
                 .withBasicAuth("root@root.com", "rootroot")

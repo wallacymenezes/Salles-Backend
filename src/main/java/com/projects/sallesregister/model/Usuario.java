@@ -38,7 +38,9 @@ public class Usuario {
     @Size(max = 1000, message = "The photo atribute has a limit of 1000 characters")
     private String foto;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne()
+    @JoinColumn(name = "cargo_id")
+    @JsonIgnoreProperties("usuarios")
     private Cargo cargo;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vendedor", cascade = CascadeType.REMOVE)
@@ -47,13 +49,13 @@ public class Usuario {
 
     // Metodos construtores
 
-    public Usuario(Long id, String nome, String usuario, String senha, String foto, String cargo) {
+    public Usuario(Long id, String nome, String usuario, String senha, String foto, Cargo cargo) {
         this.id = id;
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
         this.foto = foto;
-        this.cargo = Cargo.valueOf(cargo);
+        this.cargo = cargo;
     }
 
     public Usuario() { }
