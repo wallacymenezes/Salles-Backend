@@ -3,7 +3,6 @@ package com.projects.sallesregister.service;
 import java.time.Instant;
 import java.util.Optional;
 
-import com.projects.sallesregister.model.NovaSenha;
 import com.projects.sallesregister.model.RecuperadorSenha;
 import com.projects.sallesregister.model.Usuario;
 import com.projects.sallesregister.model.UsuarioLogin;

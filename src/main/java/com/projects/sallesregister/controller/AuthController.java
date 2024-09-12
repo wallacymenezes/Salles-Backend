@@ -1,7 +1,7 @@
 package com.projects.sallesregister.controller;
 
+import com.projects.sallesregister.model.ConfirmaCodigo;
 import com.projects.sallesregister.model.EmailRequest;
-import com.projects.sallesregister.model.NovaSenha;
 import com.projects.sallesregister.model.UsuarioLogin;
 import com.projects.sallesregister.service.AuthService;
 import jakarta.validation.Valid;
@@ -27,11 +27,8 @@ public class AuthController {
     }
 
     @PostMapping("/validate-otp")
-    public ResponseEntity<Optional<UsuarioLogin>> validateOtp(
-            @RequestParam String otp,
-            @RequestParam String email) {
-
-        Optional<UsuarioLogin> usuarioLogin = authService.validateOtpAndGenerateToken(otp, email);
+    public ResponseEntity<Optional<UsuarioLogin>> validateOtp(@Valid @RequestBody ConfirmaCodigo confirmaCodigo) {
+        Optional<UsuarioLogin> usuarioLogin = authService.validateOtpAndGenerateToken(confirmaCodigo.getOtp(), confirmaCodigo.getEmail());
         return ResponseEntity.ok(usuarioLogin);
     }
 
