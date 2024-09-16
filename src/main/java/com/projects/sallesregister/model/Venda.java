@@ -3,9 +3,11 @@ package com.projects.sallesregister.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -16,8 +18,8 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    private Date dataVenda;
+    @UpdateTimestamp
+    private LocalDateTime dataVenda;
 
     @NotBlank(message = "O nome do cliente é obrigatório.")
     private String nomeCliente;
@@ -73,11 +75,11 @@ public class Venda {
         this.id = id;
     }
 
-    public Date getDataVenda() {
+    public LocalDateTime getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(Date dataVenda) {
+    public void setDataVenda(LocalDateTime dataVenda) {
         this.dataVenda = dataVenda;
     }
 
